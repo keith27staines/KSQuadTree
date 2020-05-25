@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		536961B2247BFC6D00DD222B /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */; };
 		539253C3247BFAFA0052E695 /* KSQuadTree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539253B9247BFAFA0052E695 /* KSQuadTree.framework */; };
 		539253C8247BFAFA0052E695 /* KSQuadTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253C7247BFAFA0052E695 /* KSQuadTreeTests.swift */; };
 		539253CA247BFAFA0052E695 /* KSQuadTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 539253BC247BFAFA0052E695 /* KSQuadTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		539253DD247BFB210052E695 /* F4SQuadTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DC247BFB210052E695 /* F4SQuadTreeTests.swift */; };
+		539253DF247BFB3A0052E695 /* F4SQuadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DE247BFB3A0052E695 /* F4SQuadtree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +26,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		539253B9247BFAFA0052E695 /* KSQuadTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSQuadTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		539253BC247BFAFA0052E695 /* KSQuadTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSQuadTree.h; sourceTree = "<group>"; };
 		539253BD247BFAFA0052E695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		539253C2247BFAFA0052E695 /* KSQuadTreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSQuadTreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		539253C7247BFAFA0052E695 /* KSQuadTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSQuadTreeTests.swift; sourceTree = "<group>"; };
 		539253C9247BFAFA0052E695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		539253DC247BFB210052E695 /* F4SQuadTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = F4SQuadTreeTests.swift; sourceTree = "<group>"; };
+		539253DE247BFB3A0052E695 /* F4SQuadtree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = F4SQuadtree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,8 @@
 		539253BB247BFAFA0052E695 /* KSQuadTree */ = {
 			isa = PBXGroup;
 			children = (
+				536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */,
+				539253DE247BFB3A0052E695 /* F4SQuadtree.swift */,
 				539253BC247BFAFA0052E695 /* KSQuadTree.h */,
 				539253BD247BFAFA0052E695 /* Info.plist */,
 			);
@@ -80,6 +88,7 @@
 		539253C6247BFAFA0052E695 /* KSQuadTreeTests */ = {
 			isa = PBXGroup;
 			children = (
+				539253DC247BFB210052E695 /* F4SQuadTreeTests.swift */,
 				539253C7247BFAFA0052E695 /* KSQuadTreeTests.swift */,
 				539253C9247BFAFA0052E695 /* Info.plist */,
 			);
@@ -195,6 +204,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				539253DF247BFB3A0052E695 /* F4SQuadtree.swift in Sources */,
+				536961B2247BFC6D00DD222B /* CGRect+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				539253DD247BFB210052E695 /* F4SQuadTreeTests.swift in Sources */,
 				539253C8247BFAFA0052E695 /* KSQuadTreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +400,7 @@
 		539253D1247BFAFA0052E695 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NB5Q9333BS;
 				INFOPLIST_FILE = KSQuadTreeTests/Info.plist;
@@ -406,6 +419,7 @@
 		539253D2247BFAFA0052E695 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NB5Q9333BS;
 				INFOPLIST_FILE = KSQuadTreeTests/Info.plist;
