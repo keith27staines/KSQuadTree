@@ -9,9 +9,8 @@
 /* Begin PBXBuildFile section */
 		536961B2247BFC6D00DD222B /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */; };
 		539253C3247BFAFA0052E695 /* KSQuadTree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539253B9247BFAFA0052E695 /* KSQuadTree.framework */; };
-		539253C8247BFAFA0052E695 /* KSQuadTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253C7247BFAFA0052E695 /* KSQuadTreeTests.swift */; };
 		539253CA247BFAFA0052E695 /* KSQuadTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 539253BC247BFAFA0052E695 /* KSQuadTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		539253DD247BFB210052E695 /* F4SQuadTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DC247BFB210052E695 /* F4SQuadTreeTests.swift */; };
+		539253DD247BFB210052E695 /* KSQuadTreeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DC247BFB210052E695 /* KSQuadTreeTestCase.swift */; };
 		539253DF247BFB3A0052E695 /* F4SQuadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DE247BFB3A0052E695 /* F4SQuadtree.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,9 +30,8 @@
 		539253BC247BFAFA0052E695 /* KSQuadTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSQuadTree.h; sourceTree = "<group>"; };
 		539253BD247BFAFA0052E695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		539253C2247BFAFA0052E695 /* KSQuadTreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSQuadTreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		539253C7247BFAFA0052E695 /* KSQuadTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSQuadTreeTests.swift; sourceTree = "<group>"; };
 		539253C9247BFAFA0052E695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		539253DC247BFB210052E695 /* F4SQuadTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = F4SQuadTreeTests.swift; sourceTree = "<group>"; };
+		539253DC247BFB210052E695 /* KSQuadTreeTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSQuadTreeTestCase.swift; sourceTree = "<group>"; };
 		539253DE247BFB3A0052E695 /* F4SQuadtree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = F4SQuadtree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,8 +86,7 @@
 		539253C6247BFAFA0052E695 /* KSQuadTreeTests */ = {
 			isa = PBXGroup;
 			children = (
-				539253DC247BFB210052E695 /* F4SQuadTreeTests.swift */,
-				539253C7247BFAFA0052E695 /* KSQuadTreeTests.swift */,
+				539253DC247BFB210052E695 /* KSQuadTreeTestCase.swift */,
 				539253C9247BFAFA0052E695 /* Info.plist */,
 			);
 			path = KSQuadTreeTests;
@@ -213,8 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				539253DD247BFB210052E695 /* F4SQuadTreeTests.swift in Sources */,
-				539253C8247BFAFA0052E695 /* KSQuadTreeTests.swift in Sources */,
+				539253DD247BFB210052E695 /* KSQuadTreeTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
