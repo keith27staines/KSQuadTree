@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		536961B2247BFC6D00DD222B /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */; };
+		5351C43924A0AB0D001D054F /* KSGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5351C43824A0AB0D001D054F /* KSGeometry.framework */; };
+		5351C43A24A0AB0D001D054F /* KSGeometry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5351C43824A0AB0D001D054F /* KSGeometry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		536961B2247BFC6D00DD222B /* Rect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536961B1247BFC6D00DD222B /* Rect+Extensions.swift */; };
 		539253C3247BFAFA0052E695 /* KSQuadTree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539253B9247BFAFA0052E695 /* KSQuadTree.framework */; };
 		539253CA247BFAFA0052E695 /* KSQuadTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 539253BC247BFAFA0052E695 /* KSQuadTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		539253DD247BFB210052E695 /* KSQuadTreeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DC247BFB210052E695 /* KSQuadTreeTestCase.swift */; };
@@ -24,8 +26,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5351C43B24A0AB0D001D054F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5351C43A24A0AB0D001D054F /* KSGeometry.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
+		5351C43824A0AB0D001D054F /* KSGeometry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KSGeometry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		536961B1247BFC6D00DD222B /* Rect+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rect+Extensions.swift"; sourceTree = "<group>"; };
 		539253B9247BFAFA0052E695 /* KSQuadTree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSQuadTree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		539253BC247BFAFA0052E695 /* KSQuadTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSQuadTree.h; sourceTree = "<group>"; };
 		539253BD247BFAFA0052E695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5351C43924A0AB0D001D054F /* KSGeometry.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,12 +72,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5351C43724A0AB0D001D054F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5351C43824A0AB0D001D054F /* KSGeometry.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		539253AF247BFAFA0052E695 = {
 			isa = PBXGroup;
 			children = (
 				539253BB247BFAFA0052E695 /* KSQuadTree */,
 				539253C6247BFAFA0052E695 /* KSQuadTreeTests */,
 				539253BA247BFAFA0052E695 /* Products */,
+				5351C43724A0AB0D001D054F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,7 +102,7 @@
 		539253BB247BFAFA0052E695 /* KSQuadTree */ = {
 			isa = PBXGroup;
 			children = (
-				536961B1247BFC6D00DD222B /* CGRect+Extensions.swift */,
+				536961B1247BFC6D00DD222B /* Rect+Extensions.swift */,
 				539253DE247BFB3A0052E695 /* F4SQuadtree.swift */,
 				539253BC247BFAFA0052E695 /* KSQuadTree.h */,
 				539253BD247BFAFA0052E695 /* Info.plist */,
@@ -114,6 +141,7 @@
 				539253B5247BFAFA0052E695 /* Sources */,
 				539253B6247BFAFA0052E695 /* Frameworks */,
 				539253B7247BFAFA0052E695 /* Resources */,
+				5351C43B24A0AB0D001D054F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,7 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				539253DF247BFB3A0052E695 /* F4SQuadtree.swift in Sources */,
-				536961B2247BFC6D00DD222B /* CGRect+Extensions.swift in Sources */,
+				536961B2247BFC6D00DD222B /* Rect+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -333,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
