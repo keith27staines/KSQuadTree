@@ -22,9 +22,9 @@ public enum KSQuadrantAssignment {
 public struct KSQuadTreeItem : Equatable, Hashable {
     
     public var position: Point
-    public var object: AnyHashable
+    public var object: AnyHashable?
     
-    public init(point: Point, object: AnyHashable) {
+    public init(point: Point, object: AnyHashable?) {
         self.position = point
         self.object = object
     }
@@ -180,10 +180,10 @@ public class KSQuadTree {
         }
         if point.x < bounds.midX {
             // point lies within the top-left or bottom-left quadrant
-            return point.y < bounds.midY ? .topLeft : .bottomLeft
+            return point.y < bounds.midY ? .bottomLeft : .topLeft
         } else {
             // point lies within the top-right or bottom-right quadrant
-            return point.y < bounds.midY ? .topRight : .bottomRight
+            return point.y < bounds.midY ? .bottomRight : .topRight
         }
     }
     /// Returns the smallest subtree with bounds containing the location of the specified elements

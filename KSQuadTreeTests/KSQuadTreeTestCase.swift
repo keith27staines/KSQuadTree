@@ -1,31 +1,25 @@
-//
-//  F4SQuadtreeTests.swift
-//  F4SDataStructuresTests
-//
-//  Created by Keith Dev on 27/09/2017.
-//  Copyright © 2017 F4S. All rights reserved.
-//
 
 import XCTest
+import KSGeometry
 import KSQuadTree
 
 class KSQuadTreeTestCase: XCTestCase {
     
     func test_initalise() {
-        let rect = CGRect(x: 10, y: 10, width: 10, height: 10)
-        let sut = F4SQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        let rect = Rect(x: 10, y: 10, width: 10, height: 10)
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
         XCTAssertEqual(sut.bounds, rect)
         XCTAssertEqual(sut.depth, 5)
         XCTAssertEqual(sut.maxItems, 2)
         XCTAssertNil(sut.parent)
     }
     
-    func test_smallest() {
-        let rect = CGRect(x: 10, y: 10, width: 10, height: 10)
-        let sut = F4SQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
-        let item1 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item1")
-        let item2 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item2")
-        let item3 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item3")
+    func test_smallestSubtreeToContain() {
+        let rect = Rect(x: 10, y: 10, width: 10, height: 10)
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        let item1 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item1")
+        let item2 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item2")
+        let item3 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item3")
         try! sut.insert(item: item1)
         try! sut.insert(item: item2)
         var smallest = sut.smallestSubtreeToContain(elements: [item1,item2])
@@ -36,12 +30,12 @@ class KSQuadTreeTestCase: XCTestCase {
     }
     
     func test_build_and_clear() {
-        let rect = CGRect(x: 10, y: 10, width: 10, height: 10)
-        let sut = F4SQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
-        let item1 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item1")
-        let item2 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item2")
-        let item3 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item3")
-        let item4 = F4SQuadTreeItem(point: CGPoint(x:11,y:11), object: "item4")
+        let rect = Rect(x: 10, y: 10, width: 10, height: 10)
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        let item1 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item1")
+        let item2 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item2")
+        let item3 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item3")
+        let item4 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item4")
         try! sut.insert(item: item1)
         try! sut.insert(item: item2)
         // Add items up to the limit before this tree creates subtrees
@@ -72,109 +66,109 @@ class KSQuadTreeTestCase: XCTestCase {
     
     func testQuadrantForItemFarOutside() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let exteriorPoint = CGPoint(x: -1, y: 0)
-        let item = F4SQuadTreeItem(point: exteriorPoint, object: 1)
+        let exteriorPoint = Point(x: -1, y: 0)
+        let item = KSQuadTreeItem(point: exteriorPoint, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.none)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.none)
     }
     func testQuadrantForItemOnLeftBoundary() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let boundaryPoint = CGPoint(x: 0, y: 0.5)
-        let item = F4SQuadTreeItem(point: boundaryPoint, object: 1)
+        let boundaryPoint = Point(x: 0, y: 0.5)
+        let item = KSQuadTreeItem(point: boundaryPoint, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.none)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.none)
     }
     func testQuadrantForItemOnRightBoundary() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let boundaryPoint = CGPoint(x: 2, y: 0.5)
-        let item = F4SQuadTreeItem(point: boundaryPoint, object: 1)
+        let boundaryPoint = Point(x: 2, y: 0.5)
+        let item = KSQuadTreeItem(point: boundaryPoint, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.none)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.none)
     }
     func testQuadrantForItemOnTopBoundary() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let boundaryPoint = CGPoint(x: 0.5, y: 0)
-        let item = F4SQuadTreeItem(point: boundaryPoint, object: 1)
+        let boundaryPoint = Point(x: 0.5, y: 0)
+        let item = KSQuadTreeItem(point: boundaryPoint, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.none)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.none)
     }
     func testQuadrantForItemOnBottomBoundary() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let boundaryPoint = CGPoint(x: 0.5, y: 2)
-        let item = F4SQuadTreeItem(point: boundaryPoint, object: 1)
+        let boundaryPoint = Point(x: 0.5, y: 2)
+        let item = KSQuadTreeItem(point: boundaryPoint, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.none)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.none)
     }
     func testQuadrantForItemOnHorizontalMidline() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 0.5, y: 1)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 0.5, y: 1)
+        let item = KSQuadTreeItem(point: point, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.useOwnBounds)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.useOwnBounds)
     }
     func testQuadrantForItemOnVerticalMidline() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 1, y: 0.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 1, y: 0.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.useOwnBounds)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.useOwnBounds)
     }
     func testQuadrantForItemInTopLeftQuadrant() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 0.5, y: 0.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 0.5, y: 0.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.topLeft)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.bottomLeft)
     }
     func testQuadrantForItemInTopRightQuadrant() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 1.5, y: 0.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 1.5, y: 0.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.topRight)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.bottomRight)
     }
     func testQuadrantForItemInBottomLeftQuadrant() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 0.5, y: 1.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 0.5, y: 1.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.bottomLeft)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.topLeft)
     }
     func testQuadrantForItemInBottomRightQuadrant() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 1.5, y: 1.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 1.5, y: 1.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         let quadrant = qt.quadrant(for: item)
-        XCTAssertEqual(quadrant, F4SQuadtreeQuadrant.bottomRight)
+        XCTAssertEqual(quadrant, KSQuadrantAssignment.topRight)
     }
     func testInitQuadTreeSettingMaxItemsAndDepth() {
-        let rect = CGRect(x: 0, y: 0, width: 2, height: 2)
-        let qt = try! F4SQuadTree(bounds: rect, items: nil, depth: 27, maxItems: 72)
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let qt = try! KSQuadTree(bounds: rect, items: nil, depth: 27, maxItems: 72)
         XCTAssertEqual(qt.depth, 27)
         XCTAssertEqual(qt.maxItems, 72)
     }
     func testInitQuadTreeWithItemOutsideBoundsThrows() {
-        let rect = CGRect(x: 0, y: 0, width: 2, height: 2)
-        let exteriorPoint = CGPoint(x: -1, y: 0)
-        let item = F4SQuadTreeItem(point: exteriorPoint, object: 1)
-        XCTAssertThrowsError(try F4SQuadTree(bounds: rect, items: [item]))
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let exteriorPoint = Point(x: -1, y: 0)
+        let item = KSQuadTreeItem(point: exteriorPoint, object: 1)
+        XCTAssertThrowsError(try KSQuadTree(bounds: rect, items: [item]))
     }
     func testInsertItemOutsideOfBoundsThrows() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let exteriorPoint = CGPoint(x: -1, y: 0)
-        let item = F4SQuadTreeItem(point: exteriorPoint, object: 1)
+        let exteriorPoint = Point(x: -1, y: 0)
+        let item = KSQuadTreeItem(point: exteriorPoint, object: 1)
         XCTAssertThrowsError(try qt.insert(item: item))
     }
     func testInsertItemOnBoundaryThrows() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let boundaryPoint = CGPoint(x: 0, y: 0)
-        let item = F4SQuadTreeItem(point: boundaryPoint, object: 1)
+        let boundaryPoint = Point(x: 0, y: 0)
+        let item = KSQuadTreeItem(point: boundaryPoint, object: 1)
         XCTAssertThrowsError(try qt.insert(item: item))
     }
     func testInsertItem() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 0.5, y: 0.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 0.5, y: 0.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         try! qt.insert(item: item)
         XCTAssertNil(qt.subtreeDictionary)
         XCTAssertEqual(qt.items.count, 1)
@@ -182,17 +176,17 @@ class KSQuadTreeTestCase: XCTestCase {
     }
     func testInsertMaximumItemsBeforeSplitting() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 0.5, y: 0.5)
-        let item1 = F4SQuadTreeItem(point: point, object: 1)
-        let item2 = F4SQuadTreeItem(point: point, object: 2)
+        let point = Point(x: 0.5, y: 0.5)
+        let item1 = KSQuadTreeItem(point: point, object: 1)
+        let item2 = KSQuadTreeItem(point: point, object: 2)
         try! qt.insert(item: item1)
         try! qt.insert(item: item2)
         XCTAssertNil(qt.subtreeDictionary)
         XCTAssertEqual(qt.items.count, 2)
     }
     func testInsertOneMoreThanMaximumItemsDoesntCauseSplitIfAtDepth0() {
-        let rect = CGRect(x: 0, y: 0, width: 2, height: 2)
-        let qt = try! F4SQuadTree(bounds: rect, items: nil, depth: 0, maxItems: 2)
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let qt = try! KSQuadTree(bounds: rect, items: nil, depth: 0, maxItems: 2)
         KSQuadTreeTestCase.addOneMoreThanMaxItems(qt: qt)
         XCTAssertNil(qt.subtreeDictionary)
         XCTAssertEqual(qt.items.count, 3)
@@ -202,10 +196,10 @@ class KSQuadTreeTestCase: XCTestCase {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
         XCTAssertNotNil(qt.subtreeDictionary)
         XCTAssertEqual(qt.items.count, 0)
-        XCTAssertEqual(qt.subtreeDictionary![.topLeft]!.items.count,3)
+        XCTAssertEqual(qt.subtreeDictionary![.topLeft]!.items.count,0)
         XCTAssertEqual(qt.subtreeDictionary![.topRight]!.items.count,0)
-        XCTAssertEqual(qt.subtreeDictionary![.bottomLeft]!.items.count,0)
-        XCTAssertEqual(qt.subtreeDictionary![.bottomLeft]!.items.count,0)
+        XCTAssertEqual(qt.subtreeDictionary![.bottomLeft]!.items.count,3)
+        XCTAssertEqual(qt.subtreeDictionary![.bottomRight]!.items.count,0)
     }
     func testSubtreeDepth() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
@@ -215,8 +209,8 @@ class KSQuadTreeTestCase: XCTestCase {
     }
     func testAddingItemToAlreadySplitTreeOnMidline() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let point = CGPoint(x: qt.bounds.midX, y: 0.5)
-        let itemX = F4SQuadTreeItem(point: point, object: "X")
+        let point = Point(x: qt.bounds.midX, y: 0.5)
+        let itemX = KSQuadTreeItem(point: point, object: "X")
         try! qt.insert(item: itemX)
         XCTAssertTrue(qt.items.contains(where: { (item) -> Bool in
             guard let x = item.object as? String, x == "X" else {
@@ -227,93 +221,93 @@ class KSQuadTreeTestCase: XCTestCase {
     }
     func testRetrieveFromEmptyTree() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let items: [F4SQuadTreeItem] = qt.retrieveAll()
+        let items: [KSQuadTreeItem] = qt.retrieveAll()
         XCTAssertTrue(items.count == 0)
     }
     func testRetrieveFromNonSplitTree() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
-        let point = CGPoint(x: 0.5, y: 0.5)
-        let item = F4SQuadTreeItem(point: point, object: 1)
+        let point = Point(x: 0.5, y: 0.5)
+        let item = KSQuadTreeItem(point: point, object: 1)
         try! qt.insert(item: item)
-        let items: [F4SQuadTreeItem] = qt.retrieveAll()
+        let items: [KSQuadTreeItem] = qt.retrieveAll()
         XCTAssertTrue(items.count == 1)
     }
     
     func testRetrieveWithExternalRect() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let externalRect = CGRect(x: -10, y: -10, width: 1, height: 1)
+        let externalRect = Rect(x: -10, y: -10, width: 1, height: 1)
         XCTAssertTrue(qt.retrieveWithinRect(externalRect).count == 0)
     }
     func testRetrieveTopeLeftWithTopLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topLeft = CGRect(x: 0, y: 0, width: 1, height: 1)
+        let topLeft = Rect(x: 0, y: 0, width: 1, height: 1)
         XCTAssertEqual(qt.retrieveWithinRect(topLeft).count, qt.retrieveAll().count)
     }
     func testRetrieveTopRightWithTopLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topRight = CGRect(x: 1, y: 0, width: 1, height: 1)
+        let topRight = Rect(x: 1, y: 0, width: 1, height: 1)
         XCTAssertEqual(qt.retrieveWithinRect(topRight).count, 0)
     }
     func testRetrieveTopLeftEmptyQuadrantWithTopLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topLeftEmpty = CGRect(x: 0, y: 0, width: 0.1, height: 0.1)
+        let topLeftEmpty = Rect(x: 0, y: 0, width: 0.1, height: 0.1)
         XCTAssertEqual(qt.retrieveWithinRect(topLeftEmpty).count, 0)
     }
     func testRetrieveTopLeftPopulatedSubquadrantQuadrantWithTopLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topLeftPopulated = CGRect(x: 0.4, y: 0.4, width: 0.2, height: 0.2)
+        let topLeftPopulated = Rect(x: 0.4, y: 0.4, width: 0.2, height: 0.2)
         XCTAssertEqual(qt.retrieveWithinRect(topLeftPopulated).count, qt.retrieveAll().count)
     }
     
     func test_equality_when_equal() {
-        let point = CGPoint(x: 1, y: 2)
+        let point = Point(x: 1, y: 2)
         let object = "hello"
-        let item1 = F4SQuadTreeItem(point: point, object: object)
-        let item2 = F4SQuadTreeItem(point: point, object: object)
+        let item1 = KSQuadTreeItem(point: point, object: object)
+        let item2 = KSQuadTreeItem(point: point, object: object)
         XCTAssertTrue(item1 == item2)
     }
     
     func test_equality_when_not_equal_points() {
-        let point1 = CGPoint(x: 1, y: 2)
+        let point1 = Point(x: 1, y: 2)
         let object = "hello"
-        let point2 = CGPoint(x: 2, y: 1)
-        let item1 = F4SQuadTreeItem(point: point1, object: object)
-        let item2 = F4SQuadTreeItem(point: point2, object: object)
+        let point2 = Point(x: 2, y: 1)
+        let item1 = KSQuadTreeItem(point: point1, object: object)
+        let item2 = KSQuadTreeItem(point: point2, object: object)
         XCTAssertFalse(item1 == item2)
     }
     
     func test_equality_when_not_equal_objects() {
-        let point = CGPoint(x: 1, y: 2)
+        let point = Point(x: 1, y: 2)
         let object1 = "hello"
         let object2 = "goodbye"
-        let item1 = F4SQuadTreeItem(point: point, object: object1)
-        let item2 = F4SQuadTreeItem(point: point, object: object2)
+        let item1 = KSQuadTreeItem(point: point, object: object1)
+        let item2 = KSQuadTreeItem(point: point, object: object2)
         XCTAssertFalse(item1 == item2)
     }
     
     func test_hashvalue_when_identical() {
-        let point = CGPoint(x: 1, y: 2)
+        let point = Point(x: 1, y: 2)
         let object = "hello"
-        let item1 = F4SQuadTreeItem(point: point, object: object)
-        let item2 = F4SQuadTreeItem(point: point, object: object)
+        let item1 = KSQuadTreeItem(point: point, object: object)
+        let item2 = KSQuadTreeItem(point: point, object: object)
         XCTAssertTrue(item1.hashValue == item2.hashValue)
     }
     
     func test_hashvalue_when_different_points() {
-        let point1 = CGPoint(x: 1, y: 2)
-        let point2 = CGPoint(x: 2, y: 2)
+        let point1 = Point(x: 1, y: 2)
+        let point2 = Point(x: 2, y: 2)
         let object = "hello"
-        let item1 = F4SQuadTreeItem(point: point1, object: object)
-        let item2 = F4SQuadTreeItem(point: point2, object: object)
+        let item1 = KSQuadTreeItem(point: point1, object: object)
+        let item2 = KSQuadTreeItem(point: point2, object: object)
         XCTAssertFalse(item1.hashValue == item2.hashValue)
     }
     
     func test_hashvalue_when_different_objects() {
-        let point = CGPoint(x: 1, y: 2)
+        let point = Point(x: 1, y: 2)
         let object1 = "hello"
         let object2 = "goodbye"
-        let item1 = F4SQuadTreeItem(point: point, object: object1)
-        let item2 = F4SQuadTreeItem(point: point, object: object2)
+        let item1 = KSQuadTreeItem(point: point, object: object1)
+        let item2 = KSQuadTreeItem(point: point, object: object2)
         XCTAssertFalse(item1.hashValue == item2.hashValue)
     }
     
@@ -321,16 +315,16 @@ class KSQuadTreeTestCase: XCTestCase {
 
 // MARK: helpers
 extension KSQuadTreeTestCase {
-    /// Creates an empty tree with depth = 2, maxItems = 2, bounds = CGRect(0,0,2,2)
-    static func createEmptyTree() -> F4SQuadTree {
-        let rect = CGRect(x: 0, y: 0, width: 2, height: 2)
-        let qt = try! F4SQuadTree(bounds: rect, items: nil, depth: 2, maxItems: 2)
+    /// Creates an empty tree with depth = 2, maxItems = 2, bounds = Rect(0,0,2,2)
+    static func createEmptyTree() -> KSQuadTree {
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let qt = try! KSQuadTree(bounds: rect, items: nil, depth: 2, maxItems: 2)
         XCTAssertNil(qt.subtreeDictionary)
         return qt
     }
     
     /// Creates a quadtree with depth of 2, maxItems = 2 with sufficient items to create a split
-    static func createSplitSubtree() -> F4SQuadTree {
+    static func createSplitSubtree() -> KSQuadTree {
         let qt = createEmptyTree()
         addOneMoreThanMaxItems(qt: qt)
         XCTAssertNotNil(qt.subtreeDictionary)
@@ -338,10 +332,10 @@ extension KSQuadTreeTestCase {
     }
     
     /// Adds sufficient items to cause a split
-    static func addOneMoreThanMaxItems(qt:F4SQuadTree) {
-        let point = CGPoint(x: qt.bounds.width/4.0, y: qt.bounds.height/4.0)
+    static func addOneMoreThanMaxItems(qt:KSQuadTree) {
+        let point = Point(x: qt.bounds.size.width/4.0, y: qt.bounds.size.height/4.0)
         for i in 0...qt.maxItems {
-            let item = F4SQuadTreeItem(point: point, object: i)
+            let item = KSQuadTreeItem(point: point, object: i)
             try! qt.insert(item: item)
         }
     }
