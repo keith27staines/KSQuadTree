@@ -2,7 +2,7 @@
 import KSGeometry
 
 // MARK:-
-public enum KSPointQuadtreeError : Error {
+public enum KSQuadtreeError : Error {
     case itemNotWithinBounds
 }
 
@@ -113,7 +113,7 @@ public class KSQuadTree {
         switch quadrant {
         case .none:
             // The item lies
-            throw KSPointQuadtreeError.itemNotWithinBounds
+            throw KSQuadtreeError.itemNotWithinBounds
         case .useOwnBounds:
             // The item is lying on the mid-lines of the the current instance so must be assigned to the current instance's own array of items because it cannot be uniquely assigned to a quadrant
             items.append(item)
