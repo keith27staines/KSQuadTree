@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5351C43924A0AB0D001D054F /* KSGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5351C43824A0AB0D001D054F /* KSGeometry.framework */; };
-		5351C43A24A0AB0D001D054F /* KSGeometry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5351C43824A0AB0D001D054F /* KSGeometry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		536961B2247BFC6D00DD222B /* Rect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536961B1247BFC6D00DD222B /* Rect+Extensions.swift */; };
 		539253C3247BFAFA0052E695 /* KSQuadTree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 539253B9247BFAFA0052E695 /* KSQuadTree.framework */; };
 		539253CA247BFAFA0052E695 /* KSQuadTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 539253BC247BFAFA0052E695 /* KSQuadTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,20 +24,6 @@
 			remoteInfo = KSQuadTree;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5351C43B24A0AB0D001D054F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5351C43A24A0AB0D001D054F /* KSGeometry.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5351C43824A0AB0D001D054F /* KSGeometry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KSGeometry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +126,6 @@
 				539253B5247BFAFA0052E695 /* Sources */,
 				539253B6247BFAFA0052E695 /* Frameworks */,
 				539253B7247BFAFA0052E695 /* Resources */,
-				5351C43B24A0AB0D001D054F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
