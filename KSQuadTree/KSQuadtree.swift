@@ -8,7 +8,7 @@ public enum KSQuadtreeError : Error {
 
 // MARK:-
 /// Represents the quadrant that an item lies within
-public enum KSQuadtreeQuadrant {
+public enum KSQuadrantAssignment {
     case topLeft
     case topRight
     case bottomRight
@@ -43,7 +43,7 @@ public class KSQuadTree {
     /// The nesting depth for the current instance. If the max depth is reached, the subtree will not split
     public let depth: Int
     /// Returns the subtrees within the current instance
-    public var subtreeDictionary: [KSQuadtreeQuadrant:KSQuadTree]? = nil
+    public var subtreeDictionary: [KSQuadrantAssignment:KSQuadTree]? = nil
     /// The bounding rectangle for the current instance
     public let bounds: Rect
     /// The quadtree which is parent to this one
@@ -159,9 +159,9 @@ public class KSQuadTree {
     }
     
     /// Returns a dictionary containing new sub-quadtrees for the current instance
-    func createSubtreeDictionary() -> [KSQuadtreeQuadrant : KSQuadTree] {
+    func createSubtreeDictionary() -> [KSQuadrantAssignment : KSQuadTree] {
         let rects = bounds.quadrantRects()
-        var subtrees = [KSQuadtreeQuadrant:KSQuadTree]()
+        var subtrees = [KSQuadrantAssignment:KSQuadTree]()
         subtrees[.topLeft] = try! KSQuadTree(bounds: rects[.topLeft]!, items: nil, depth: depth - 1, maxItems: maxItems)
         subtrees[.topRight] = try! KSQuadTree(bounds: rects[.topRight]!, items: nil, depth: depth - 1, maxItems: maxItems)
         subtrees[.bottomLeft] = try! KSQuadTree(bounds: rects[.bottomLeft]!, items: nil, depth: depth - 1, maxItems: maxItems)
@@ -170,7 +170,7 @@ public class KSQuadTree {
     }
     
     /// Returns the quadrant in which the item lies
-    public func quadrant(for item: KSQuadTreeItem) -> KSQuadtreeQuadrant {
+    public func quadrant(for item: KSQuadTreeItem) -> KSQuadrantAssignment {
         let point = item.position
         if !bounds.contains(point){
             return .none // point is outside our bounds or on our boundary which counts as outside
