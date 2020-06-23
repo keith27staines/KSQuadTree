@@ -3,6 +3,15 @@ import XCTest
 import KSGeometry
 @testable import KSQuadTree
 
+class KSQuadTreeItemTestCase: XCTestCase {
+    func test_initialise() {
+        let sut = KSQuadTreeItem(point: Point(x: 1, y: 2), object: "hello")
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 2)
+        XCTAssertEqual(sut.object, "hello")
+    }
+}
+
 class KSQuadTreeTestCase: XCTestCase {
     
     func test_initalise() {
