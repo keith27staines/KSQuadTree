@@ -19,22 +19,24 @@ public enum KSQuadrantAssignment {
     case none
 }
 
-public struct KSQuadTreeItem : Equatable, Hashable {
+public struct KSQuadTreeItem : Equatable, Hashable, XYLocatable {
     
-    public var position: Point
+    public var x: Float { point.x }
+    public var y: Float { point.y }
+    
+    public var point: Point
     public var object: AnyHashable?
     
     public init(point: Point, object: AnyHashable?) {
-        self.position = point
+        self.point = point
         self.object = object
     }
     
     public static func ==(lhs: KSQuadTreeItem, rhs: KSQuadTreeItem) -> Bool {
-        return lhs.position == rhs.position && lhs.object == rhs.object
+        return lhs.point == rhs.point && lhs.object == rhs.object
     }
 }
 
-// MARK:-
 public class KSQuadTree {
     /// The points directly contained within this instance (excludes points assigned to subtrees of this instance)
     public var items: [KSQuadTreeItem]
@@ -92,7 +94,7 @@ public class KSQuadTree {
         }
         let items = retrieveAll()
         let itemsInside = items.filter { (item) -> Bool in
-            return rect.contains(item.position)
+            return rect.contains(item.point)
         }
         return itemsInside
     }
@@ -171,7 +173,7 @@ public class KSQuadTree {
     
     /// Returns the quadrant in which the item lies
     public func quadrant(for item: KSQuadTreeItem) -> KSQuadrantAssignment {
-        let point = item.position
+        let point = item.point
         if !bounds.contains(point){
             return .none // point is outside our bounds or on our boundary which counts as outside
         }

@@ -219,7 +219,7 @@ class KSQuadTreeTestCase: XCTestCase {
         try! qt.insert(item: item)
         XCTAssertNil(qt.subtreeDictionary)
         XCTAssertEqual(qt.items.count, 1)
-        XCTAssertEqual(qt.items[0].position, point)
+        XCTAssertEqual(qt.items[0].point, point)
     }
     func testInsertMaximumItemsBeforeSplitting() {
         let qt = KSQuadTreeTestCase.createEmptyTree()
