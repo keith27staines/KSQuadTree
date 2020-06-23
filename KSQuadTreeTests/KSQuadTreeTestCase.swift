@@ -1,7 +1,7 @@
 
 import XCTest
 import KSGeometry
-import KSQuadTree
+@testable import KSQuadTree
 
 class KSQuadTreeTestCase: XCTestCase {
     
@@ -14,30 +14,77 @@ class KSQuadTreeTestCase: XCTestCase {
         XCTAssertNil(sut.parent)
     }
     
-    func test_smallestSubtreeToContain() {
+    func test_smallestSubtreeToContain_with_no_items() {
         let rect = Rect(x: 10, y: 10, width: 10, height: 10)
         let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
-        let item1 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item1")
-        let item2 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item2")
-        let item3 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item3")
+        XCTAssertNil(sut.smallestSubtreeToContain(elements: []))
+    }
+    
+    func test_smallestSubtreeToContain_element() {
+        let rect = Rect(x: 0, y: 0, width: 4, height: 4)
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        let item1 = KSQuadTreeItem(point: Point(x:1,y:1), object: "")
+        let item2 = KSQuadTreeItem(point: Point(x:3,y:1), object: "")
+        let item3 = KSQuadTreeItem(point: Point(x:1,y:3), object: "")
+        let item4 = KSQuadTreeItem(point: Point(x:3,y:3), object: "")
         try! sut.insert(item: item1)
         try! sut.insert(item: item2)
-        var smallest = sut.smallestSubtreeToContain(elements: [item1,item2])
-        XCTAssertEqual(smallest!.bounds, rect)
         try! sut.insert(item: item3)
-        smallest = sut.smallestSubtreeToContain(elements: [item1,item2, item3])
-        XCTAssertNotEqual(smallest!.bounds, rect)
+        try! sut.insert(item: item4)
+        XCTAssertEqual(sut.smallestSubtreeToContain(element: item1)?.bounds,rect.quadrantRects()[.bottomLeft])
+        XCTAssertEqual(sut.smallestSubtreeToContain(element: item2)?.bounds,rect.quadrantRects()[.bottomRight])
+        XCTAssertEqual(sut.smallestSubtreeToContain(element: item3)?.bounds,rect.quadrantRects()[.topLeft])
+        XCTAssertEqual(sut.smallestSubtreeToContain(element: item4)?.bounds,rect.quadrantRects()[.topRight])
+    }
+    
+    func test_smallestSubtreeToContain_elements() {
+        let rect = Rect(x: 0, y: 0, width: 4, height: 4)
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        let item1 = KSQuadTreeItem(point: Point(x:1,y:1), object: "")
+        let item2 = KSQuadTreeItem(point: Point(x:3,y:1), object: "")
+        let item3 = KSQuadTreeItem(point: Point(x:1,y:3), object: "")
+        let item4 = KSQuadTreeItem(point: Point(x:3,y:3), object: "")
+        try! sut.insert(item: item1)
+        try! sut.insert(item: item2)
+        try! sut.insert(item: item3)
+        try! sut.insert(item: item4)
+        XCTAssertNil(sut.smallestSubtreeToContain(elements:[]))
+        XCTAssertEqual(sut.smallestSubtreeToContain(elements: [item1])?.bounds,rect.quadrantRects()[.bottomLeft])
+        XCTAssertEqual(sut.smallestSubtreeToContain(elements: [item1,item2])?.bounds,rect)
+    }
+    
+    func test_split_occurs_on_inserting_after_limit_reached() {
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let item = KSQuadTreeItem(point: Point(x:0.5,y:0.5), object: "item")
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        try! sut.insert(item: item)
+        try! sut.insert(item: item)
+        XCTAssertNil(sut.subtreeDictionary)
+        XCTAssertEqual(sut.items.count, 2)
+        try! sut.insert(item: item)
+        XCTAssertEqual(sut.items.count, 0)
+        XCTAssertEqual(sut.subtreeDictionary?[.bottomLeft]?.items.count, 3)
+    }
+    
+    func test_split_accumulates_none_quadrant_items() {
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let nonQuadrantItem = KSQuadTreeItem(point: Point(x: 1, y: 1), object: "")
+        let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
+        try! sut.insert(item: nonQuadrantItem) //
+        try! sut.insert(item: nonQuadrantItem)
+        try! sut.insert(item: nonQuadrantItem)
+        let quadrantItem = KSQuadTreeItem(point: Point(x: 0.1, y: 0.1), object: "")
+        try! sut.insert(item: quadrantItem)
+        XCTAssertEqual(sut.items.count, 3)
+        XCTAssertEqual(sut.subtreeDictionary?[.bottomLeft]?.items.count, 1)
     }
     
     func test_build_and_clear() {
         let rect = Rect(x: 10, y: 10, width: 10, height: 10)
         let sut = KSQuadTree(bounds: rect, depth: 5, maxItems: 2, parent: nil)
-        let item1 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item1")
-        let item2 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item2")
-        let item3 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item3")
-        let item4 = KSQuadTreeItem(point: Point(x:11,y:11), object: "item4")
-        try! sut.insert(item: item1)
-        try! sut.insert(item: item2)
+        let item = KSQuadTreeItem(point: Point(x:11,y:11), object: "item")
+        try! sut.insert(item: item)
+        try! sut.insert(item: item)
         // Add items up to the limit before this tree creates subtrees
         XCTAssertEqual(sut.items.count, 2)
         XCTAssertEqual(sut.count(), 2)
@@ -47,14 +94,14 @@ class KSQuadTreeTestCase: XCTestCase {
         XCTAssertEqual(sut.items.count,0)
         XCTAssertNil(sut.subtreeDictionary)
         // Add three items (one more than maxItems) to force subtrees to be created and items copied to them
-        try! sut.insert(item: item1)
-        try! sut.insert(item: item2)
-        try! sut.insert(item: item3)
+        try! sut.insert(item: item)
+        try! sut.insert(item: item)
+        try! sut.insert(item: item)
         XCTAssertEqual(sut.items.count, 0)
         XCTAssertEqual(sut.count(), 3)
         XCTAssertEqual(sut.subtreeDictionary!.count, 4)
         // Add one more item to ensure it goes into the existing subtrees and not the items collection
-        try! sut.insert(item: item4)
+        try! sut.insert(item: item)
         XCTAssertEqual(sut.items.count, 0)
         XCTAssertEqual(sut.count(), 4)
         XCTAssertEqual(sut.subtreeDictionary!.count, 4)
@@ -309,6 +356,19 @@ class KSQuadTreeTestCase: XCTestCase {
         let item1 = KSQuadTreeItem(point: point, object: object1)
         let item2 = KSQuadTreeItem(point: point, object: object2)
         XCTAssertFalse(item1.hashValue == item2.hashValue)
+    }
+    
+    func test_couldContain_with_empty_array() {
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let sut = KSQuadTree(bounds: rect)
+        XCTAssertFalse(sut.couldContain(elements: []))
+    }
+    
+    func testCouldContain_with_item_outside() {
+        let rect = Rect(x: 0, y: 0, width: 2, height: 2)
+        let sut = KSQuadTree(bounds: rect)
+        let outsideItem = KSQuadTreeItem(point: Point(x: -1, y: 0), object: nil)
+        XCTAssertFalse(sut.couldContain(elements: [outsideItem]))
     }
     
 }

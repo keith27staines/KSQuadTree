@@ -54,7 +54,6 @@ public class KSQuadTree {
     }
     
     public init(bounds: Rect, items: [KSQuadTreeItem]?, depth: Int = 30, maxItems: Int = 30, parent: KSQuadTree? = nil) throws {
-        precondition(bounds.size != Size.zero, "Bounds cannot be zero")
         self.bounds = bounds
         self.maxItems = maxItems
         self.depth = depth
@@ -166,6 +165,7 @@ public class KSQuadTree {
         subtrees[.topRight] = try! KSQuadTree(bounds: rects[.topRight]!, items: nil, depth: depth - 1, maxItems: maxItems)
         subtrees[.bottomLeft] = try! KSQuadTree(bounds: rects[.bottomLeft]!, items: nil, depth: depth - 1, maxItems: maxItems)
         subtrees[.bottomRight] = try! KSQuadTree(bounds: rects[.bottomRight]!, items: nil, depth: depth - 1, maxItems: maxItems)
+        subtrees.values.forEach { (subtree) in subtree.parent = self }
         return subtrees
     }
     
@@ -181,11 +181,11 @@ public class KSQuadTree {
         if point.x < bounds.midX {
             // point lies within the top-left or bottom-left quadrant
             return point.y < bounds.midY ? .bottomLeft : .topLeft
-        } else {
-            // point lies within the top-right or bottom-right quadrant
-            return point.y < bounds.midY ? .bottomRight : .topRight
         }
+        // point lies within the top-right or bottom-right quadrant
+        return point.y < bounds.midY ? .bottomRight : .topRight
     }
+    
     /// Returns the smallest subtree with bounds containing the location of the specified elements
     public func smallestSubtreeToContain(elements: [KSQuadTreeItem]) -> KSQuadTree? {
         guard let first = elements.first else {
@@ -194,6 +194,7 @@ public class KSQuadTree {
         guard var smallest = smallestSubtreeToContain(element: first) else {
             return nil
         }
+
         while !smallest.couldContain(elements: elements) {
             guard let parent = smallest.parent else {
                 return nil
@@ -202,16 +203,7 @@ public class KSQuadTree {
         }
         return smallest
     }
-    /// Tests whether the current instance or any of its subtrees could contain the location of the specified element (i.e, its position lies within the current instance's bounds
-    public func couldContain(elements: [KSQuadTreeItem]) -> Bool {
-        guard !elements.isEmpty else { return false }
-        for element in elements {
-            if quadrant(for: element) == .none {
-                return false
-            }
-        }
-        return true
-    }
+    
     /// Returns the smallest subtree with bounds containing the location of the specified element
     public func smallestSubtreeToContain(element: KSQuadTreeItem) -> KSQuadTree? {
         let quadrant = self.quadrant(for: element)
@@ -228,6 +220,17 @@ public class KSQuadTree {
                 return self
             }
         }
+    }
+    
+    /// Tests whether the current instance or any of its subtrees could contain the location of the specified element (i.e, its position lies within the current instance's bounds
+    public func couldContain(elements: [KSQuadTreeItem]) -> Bool {
+        guard !elements.isEmpty else { return false }
+        for element in elements {
+            if quadrant(for: element) == .none {
+                return false
+            }
+        }
+        return true
     }
 }
 
