@@ -55,7 +55,7 @@ public class KSQuadTree {
         try! self.init(bounds: bounds, items: nil, depth: depth, maxItems: maxItems)
     }
     
-    public init(bounds: Rect, items: [KSQuadTreeItem]?, depth: Int = 30, maxItems: Int = 30, parent: KSQuadTree? = nil) throws {
+    public init(bounds: Rect, items: [KSQuadTreeItem]?, depth: Int = 80, maxItems: Int = 5, parent: KSQuadTree? = nil) throws {
         self.bounds = bounds
         self.maxItems = maxItems
         self.depth = depth
@@ -89,10 +89,12 @@ public class KSQuadTree {
     }
     /// Retrieve all items in the tree that lie within the specified rect
     public func retrieveWithinRect(_ rect: Rect) -> [KSQuadTreeItem] {
-        guard rect.intersects(bounds) else {
+        guard rect.intersects(bounds),
+            let tree = smallestSubtreeToContain(rect: rect)
+            else {
             return [KSQuadTreeItem]()
         }
-        let items = retrieveAll()
+        let items = tree.retrieveAll()
         let itemsInside = items.filter { (item) -> Bool in
             return rect.contains(item.point)
         }
@@ -186,6 +188,17 @@ public class KSQuadTree {
         }
         // point lies within the top-right or bottom-right quadrant
         return point.y < bounds.midY ? .bottomRight : .topRight
+    }
+    
+    public func smallestSubtreeToContain(rect: Rect) -> KSQuadTree? {
+        guard bounds.contains(rect) else { return nil }
+        guard let subtrees = subtreeDictionary else { return self }
+        return
+            subtrees[.bottomLeft]?.smallestSubtreeToContain(rect: rect) ??
+            subtrees[.topLeft]?.smallestSubtreeToContain(rect: rect) ??
+            subtrees[.bottomRight]?.smallestSubtreeToContain(rect: rect) ??
+            subtrees[.topRight]?.smallestSubtreeToContain(rect: rect) ??
+            self
     }
     
     /// Returns the smallest subtree with bounds containing the location of the specified elements

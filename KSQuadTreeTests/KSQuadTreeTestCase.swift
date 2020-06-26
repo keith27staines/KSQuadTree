@@ -294,25 +294,25 @@ class KSQuadTreeTestCase: XCTestCase {
         let externalRect = Rect(x: -10, y: -10, width: 1, height: 1)
         XCTAssertTrue(qt.retrieveWithinRect(externalRect).count == 0)
     }
-    func testRetrieveTopeLeftWithTopLeftQuadrantRectContainingAllItems() {
+    func testRetrieveTopLeftWithBottomLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topLeft = Rect(x: 0, y: 0, width: 1, height: 1)
-        XCTAssertEqual(qt.retrieveWithinRect(topLeft).count, qt.retrieveAll().count)
+        let rect = qt.bounds.quadrantRects()[.topLeft]!
+        XCTAssertEqual(qt.retrieveWithinRect(rect).count, 0)
     }
-    func testRetrieveTopRightWithTopLeftQuadrantRectContainingAllItems() {
+    func testRetrieveTopRightWithBottomLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topRight = Rect(x: 1, y: 0, width: 1, height: 1)
-        XCTAssertEqual(qt.retrieveWithinRect(topRight).count, 0)
+        let rect = qt.bounds.quadrantRects()[.topRight]!
+        XCTAssertEqual(qt.retrieveWithinRect(rect).count, 0)
     }
-    func testRetrieveTopLeftEmptyQuadrantWithTopLeftQuadrantRectContainingAllItems() {
+    func testRetrieveBottomWithBottomLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topLeftEmpty = Rect(x: 0, y: 0, width: 0.1, height: 0.1)
-        XCTAssertEqual(qt.retrieveWithinRect(topLeftEmpty).count, 0)
+        let rect = qt.bounds.quadrantRects()[.bottomLeft]!
+        XCTAssertEqual(qt.retrieveWithinRect(rect).count, 3)
     }
-    func testRetrieveTopLeftPopulatedSubquadrantQuadrantWithTopLeftQuadrantRectContainingAllItems() {
+    func testRetrieveBottomRightWithBottomLeftQuadrantRectContainingAllItems() {
         let qt = KSQuadTreeTestCase.createSplitSubtree()
-        let topLeftPopulated = Rect(x: 0.4, y: 0.4, width: 0.2, height: 0.2)
-        XCTAssertEqual(qt.retrieveWithinRect(topLeftPopulated).count, qt.retrieveAll().count)
+        let rect = qt.bounds.quadrantRects()[.bottomRight]!
+        XCTAssertEqual(qt.retrieveWithinRect(rect).count, 0)
     }
     
     func test_equality_when_equal() {
