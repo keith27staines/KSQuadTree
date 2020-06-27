@@ -13,6 +13,7 @@
 		539253CA247BFAFA0052E695 /* KSQuadTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 539253BC247BFAFA0052E695 /* KSQuadTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		539253DD247BFB210052E695 /* KSQuadTreeTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DC247BFB210052E695 /* KSQuadTreeTestCase.swift */; };
 		539253DF247BFB3A0052E695 /* KSQuadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539253DE247BFB3A0052E695 /* KSQuadtree.swift */; };
+		53F12B1424A71B7C001E02A9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 53F12B1324A71B7C001E02A9 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,9 @@
 		539253C9247BFAFA0052E695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		539253DC247BFB210052E695 /* KSQuadTreeTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSQuadTreeTestCase.swift; sourceTree = "<group>"; };
 		539253DE247BFB3A0052E695 /* KSQuadtree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSQuadtree.swift; sourceTree = "<group>"; };
+		53F12B0F24A71AFC001E02A9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		53F12B1224A71B6E001E02A9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		53F12B1324A71B7C001E02A9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,9 @@
 		539253AF247BFAFA0052E695 = {
 			isa = PBXGroup;
 			children = (
+				53F12B1324A71B7C001E02A9 /* .gitignore */,
+				53F12B1224A71B6E001E02A9 /* README.md */,
+				53F12B0F24A71AFC001E02A9 /* LICENSE */,
 				539253BB247BFAFA0052E695 /* KSQuadTree */,
 				539253C6247BFAFA0052E695 /* KSQuadTreeTests */,
 				539253BA247BFAFA0052E695 /* Products */,
@@ -196,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53F12B1424A71B7C001E02A9 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
